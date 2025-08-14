@@ -8,18 +8,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
@@ -27,6 +23,13 @@ import org.gamepdia.logError
 import org.koin.compose.viewmodel.koinViewModel
 import androidx.compose.foundation.layout.Column
 import org.gamepdia.domain.model.Game
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+
 
 @Composable
 fun SearchScreen(modifier: Modifier = Modifier) {
@@ -72,7 +75,10 @@ fun SearchScreenContent(
             colors = TextFieldDefaults.colors(
                 focusedContainerColor = Color.White,
                 unfocusedContainerColor = Color.LightGray,
-            )
+            ),
+            placeholder = {
+                Text("Search here...")
+            }
         )
 
         if (uiState.isLoading) {
@@ -105,9 +111,13 @@ fun SearchItemCard(game: Game) {
         modifier =
             Modifier.padding(12.dp)
                 .background(color = Color.Transparent, shape = RoundedCornerShape(8.dp))
-                .clip(RoundedCornerShape(8.dp)),
+                .clip(RoundedCornerShape(8.dp))
+                .height(250.dp)
+
+        ,
         model = game.imageUrl,
-        contentDescription = null
+        contentDescription = null,
+        contentScale = ContentScale.Crop
     )
 }
 

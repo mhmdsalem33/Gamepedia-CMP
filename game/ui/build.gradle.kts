@@ -35,6 +35,8 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
+
+
         }
         commonMain.dependencies {
 
@@ -57,6 +59,8 @@ kotlin {
             implementation(libs.koin.compose.viewmodel)
             implementation(libs.coil)
             implementation(libs.coil.ktor)
+
+
 
 //            implementation("io.github.aakira:napier:2.6.1")
 

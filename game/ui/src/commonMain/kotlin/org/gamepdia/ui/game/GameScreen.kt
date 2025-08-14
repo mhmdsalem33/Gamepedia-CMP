@@ -1,6 +1,7 @@
 package org.gamepdia.ui.game
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -22,6 +23,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -41,16 +43,14 @@ fun GameScreen(
     modifier: Modifier = Modifier,
     onFavoriteClick: (() -> Unit) = {},
     onSearchClick: (() -> Unit),
-
+    onCardClick: ((Int) -> Unit)
 ) {
 
 
     val viewModel = koinViewModel<GameViewModel>()
-
-
     val uiState = viewModel.gamesUiState.collectAsStateWithLifecycle()
 
-    GameScreenContent( modifier = Modifier.fillMaxSize() , uiState = uiState.value , onFavoriteClick , onSearchClick )
+    GameScreenContent( modifier = Modifier.fillMaxSize() , uiState = uiState.value , onFavoriteClick , onSearchClick , onCardClick )
 
 }
 
@@ -61,7 +61,8 @@ fun GameScreenContent(
     modifier: Modifier = Modifier,
     uiState: GameScreen.UiState,
     onFavoriteClick: (() -> Unit),
-    onSearchClick: (() -> Unit)
+    onSearchClick: (() -> Unit),
+    onCardClick: ((Int) -> Unit)
 ) {
     Scaffold(
         modifier = modifier,
@@ -100,7 +101,7 @@ fun GameScreenContent(
         uiState.data?.let { data ->
             LazyColumn(modifier = Modifier.fillMaxSize()) {
                 items(data) { game ->
-                    GameItemCard(game)
+                    GameItemCard(game , onClick = onCardClick)
                 }
             }
         }
@@ -110,9 +111,12 @@ fun GameScreenContent(
 
 
 @Composable
-fun GameItemCard(game: Game) {
+fun GameItemCard( game: Game , onClick: (Int) -> Unit ) {
     Card(
-        modifier = Modifier.padding(8.dp),
+        modifier = Modifier.padding(8.dp)
+            .clickable {
+                onClick(game.id)
+            },
         shape = RoundedCornerShape(12.dp)
     ) {
         Box(Modifier.fillMaxSize()) {

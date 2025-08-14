@@ -10,6 +10,8 @@ import io.ktor.http.contentType
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import io.ktor.http.takeFrom
+import io.ktor.client.plugins.logging.*
+import io.ktor.http.HttpHeaders
 
 
 object KtorClient {
@@ -24,6 +26,14 @@ object KtorClient {
                 coerceInputValues = true // <-- replaces nulls with defaults
             })
         }
+
+
+        install(Logging) {
+            logger = Logger.DEFAULT        // SLF4J on JVM, use Logger.SIMPLE on Native
+            level = LogLevel.BODY          // logs URL, headers, and body
+            sanitizeHeader { it == HttpHeaders.Authorization || it == HttpHeaders.Cookie }
+        }
+
 //        https://api.rawg.io/api/games?key=0a6421ee9d7f4494aba568c945dfa4c6
 
         install(DefaultRequest) {
@@ -35,9 +45,9 @@ object KtorClient {
 
 
         install(HttpTimeout) {
-            socketTimeoutMillis = 3000
-            connectTimeoutMillis = 3000
-            requestTimeoutMillis = 3000
+            socketTimeoutMillis = 5000
+            connectTimeoutMillis = 15000
+            requestTimeoutMillis = 15000
         }
 
     }

@@ -42,6 +42,7 @@ kotlin {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
             implementation(libs.ktor.client.android)
+
         }
 
         commonMain.dependencies {
@@ -61,7 +62,7 @@ kotlin {
 
 
             implementation(libs.koin.core)
-
+            implementation("io.ktor:ktor-client-logging:3.2.3")
         }
 
 
