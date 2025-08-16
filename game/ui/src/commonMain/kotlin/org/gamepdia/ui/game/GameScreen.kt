@@ -1,19 +1,21 @@
 package org.gamepdia.ui.game
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -23,18 +25,13 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import coil3.compose.AsyncImage
-import org.gamepdia.domain.model.Game
 import org.gamepdia.logError
+import org.gamepdia.ui.GameItemCard
 import org.koin.compose.viewmodel.koinViewModel
 
 
@@ -50,7 +47,13 @@ fun GameScreen(
     val viewModel = koinViewModel<GameViewModel>()
     val uiState = viewModel.gamesUiState.collectAsStateWithLifecycle()
 
-    GameScreenContent( modifier = Modifier.fillMaxSize() , uiState = uiState.value , onFavoriteClick , onSearchClick , onCardClick )
+    GameScreenContent(
+        modifier = Modifier.fillMaxSize(),
+        uiState = uiState.value,
+        onFavoriteClick,
+        onSearchClick,
+        onCardClick
+    )
 
 }
 
@@ -64,92 +67,66 @@ fun GameScreenContent(
     onSearchClick: (() -> Unit),
     onCardClick: ((Int) -> Unit)
 ) {
-    Scaffold(
-        modifier = modifier,
-        topBar = {
-            TopAppBar(
-                title = { Text("Gamepdia") },
-                actions = {
-
-                    IconButton(onClick = onSearchClick) {
-                        Icon(
-                            imageVector = Icons.Default.Search,
-                            contentDescription = "Search"
-                        )
-                    }
-
-                    IconButton(onClick = onFavoriteClick) {
-                        Icon(
-                            imageVector = Icons.Filled.Favorite,
-                            contentDescription = "Favorite"
-                        )
-                    }
-                }
-            )
-        }) {
 
 
-        if (uiState.isLoading) {
-            GameLoading()
-        }
+    if (uiState.isLoading) {
+        GameLoading()
+    }
 
-        if (uiState.error.isNotBlank()) {
-            GameError(uiState.error)
-        }
+    if (uiState.error.isNotBlank()) {
+        GameError(uiState.error)
+    }
 
 
-        uiState.data?.let { data ->
+    uiState.data?.let { data ->
+
+        Box(modifier = Modifier.fillMaxSize()) {
+
             LazyColumn(modifier = Modifier.fillMaxSize()) {
                 items(data) { game ->
-                    GameItemCard(game , onClick = onCardClick)
+                    GameItemCard(game, onClick = onCardClick)
                 }
             }
         }
 
-    }
-}
 
+        Row(
+            modifier = Modifier
+                .padding(horizontal = 16.dp)
+                .padding(top = 25.dp)
+                .fillMaxWidth(),
 
-@Composable
-fun GameItemCard( game: Game , onClick: (Int) -> Unit ) {
-    Card(
-        modifier = Modifier.padding(8.dp)
-            .clickable {
-                onClick(game.id)
-            },
-        shape = RoundedCornerShape(12.dp)
-    ) {
-        Box(Modifier.fillMaxSize()) {
-            AsyncImage(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(350.dp),
-                model = game.imageUrl,
-                contentDescription = game.name,
-                contentScale = ContentScale.Crop
-            )
-
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 10.dp , vertical = 8.dp)
-                    .background(
-                        color = Color.White,
-                        shape = RoundedCornerShape(12.dp)
-                    )
-                    .align(Alignment.BottomCenter)
             ) {
-                Text(
-                    text = game.name,
-                    style = MaterialTheme.typography.bodyMedium,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 8.dp, vertical = 4.dp),
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    textAlign = TextAlign.Center
+
+            Spacer(modifier = Modifier.weight(1f))
+
+            IconButton(
+                onClick = {
+                    onSearchClick()
+                },
+                modifier = Modifier.background(color = Color.White, shape = CircleShape)
+            ) {
+                Icon(
+                    imageVector = Icons.Filled.Search, contentDescription = "",
+                    modifier = Modifier.padding(4.dp)
                 )
             }
+
+            Spacer(modifier = Modifier.width(5.dp))
+
+            IconButton(
+                onClick = {
+                    onFavoriteClick()
+                },
+                modifier = Modifier.background(color = Color.White, shape = CircleShape)
+            ) {
+                Icon(
+                    imageVector = Icons.Filled.Favorite, contentDescription = "",
+                    modifier = Modifier.padding(4.dp)
+                )
+            }
+
+
         }
     }
 }
@@ -166,7 +143,7 @@ fun GameLoading() {
 fun GameError(error: String) {
     Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         Text(error)
-        logError(error )
+        logError(error)
     }
 
 }

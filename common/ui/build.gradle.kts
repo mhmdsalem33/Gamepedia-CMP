@@ -37,6 +37,10 @@ kotlin {
             implementation(libs.androidx.activity.compose)
         }
         commonMain.dependencies {
+
+            implementation(projects.common.domain)
+
+
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material3)
@@ -45,6 +49,11 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
+
+
+            implementation(libs.coil)
+            implementation(libs.coil.ktor)
+            implementation(compose.materialIconsExtended)
 
 
 

@@ -41,10 +41,8 @@ import org.koin.compose.viewmodel.koinViewModel
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.Forward
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.ui.text.font.FontWeight
@@ -72,10 +70,10 @@ fun GameDetailsScreen(
         modifier = Modifier.fillMaxSize(),
         uiState = uiState.value,
         onDelete = {
-
+            viewModel.delete(it.toLong())
         },
         onSave = { id , name , image ->
-
+            viewModel.saveGame( id.toLong() , name , image)
         },
         onBackPress = { onBackPress() }
     )
@@ -273,17 +271,17 @@ fun GameDetailsScreenContent(
 
                 Spacer(modifier = Modifier.width(5.dp))
 
-                IconButton(
-                    onClick = {
-                        onDelete(data.id)
-                    },
-                    modifier = Modifier.background(color = Color.White, shape = CircleShape)
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Delete, contentDescription = "",
-                        modifier = Modifier.padding(4.dp)
-                    )
-                }
+//                IconButton(
+//                    onClick = {
+//                        onDelete(data.id)
+//                    },
+//                    modifier = Modifier.background(color = Color.White, shape = CircleShape)
+//                ) {
+//                    Icon(
+//                        imageVector = Icons.Default.Delete, contentDescription = "",
+//                        modifier = Modifier.padding(4.dp)
+//                    )
+//                }
             }
 
         }

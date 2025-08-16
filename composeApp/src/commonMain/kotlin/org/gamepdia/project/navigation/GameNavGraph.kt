@@ -31,10 +31,14 @@ object GameNavGraph : BaseNavGraph {
         ) {
             composable(Dest.Game.route) {
                 GameScreen(
-                    modifier = modifier.fillMaxSize(), onSearchClick = {
+                    modifier = modifier.fillMaxSize(),
+                    onSearchClick = {
                         navHostController.navigate(
                             SearchNavGraph.Dest.Search.route
                         )
+                    },
+                    onFavoriteClick = {
+                        navHostController.navigate(route = FavoriteNavGraph.Dest.Root.route)
                     },
                     onCardClick = { id ->
                         navHostController.navigate(

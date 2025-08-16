@@ -43,6 +43,10 @@ kotlin {
             implementation(projects.game.domain)
             implementation(projects.common.domain)
             implementation(projects.common.logger)
+            implementation(projects.common.ui)
+
+
+            implementation(projects.favorite.domain)
 
 
             implementation(compose.runtime)
@@ -59,11 +63,6 @@ kotlin {
             implementation(libs.koin.compose.viewmodel)
             implementation(libs.coil)
             implementation(libs.coil.ktor)
-
-
-
-//            implementation("io.github.aakira:napier:2.6.1")
-
 
 
         }
