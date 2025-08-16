@@ -12,8 +12,8 @@ data class GameDetailsResponse(
     val id: Int? = null,
     val name: String? = null,
     val platforms: List<PlatformWrapperResponse>? = emptyList(),
-    val stores: List<StoreResponse>? = null,
-    val developer: List<DeveloperResponse>? = null,
+    val stores: List<StoresResponse>? = null,
+    val developers: List<DeveloperResponse>? = null,
     val tags : List<TagResponse>? = null
 
 )

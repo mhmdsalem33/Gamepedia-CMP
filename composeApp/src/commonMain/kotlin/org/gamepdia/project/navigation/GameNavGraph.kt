@@ -48,7 +48,9 @@ object GameNavGraph : BaseNavGraph {
 
             composable(Dest.Details.route){
                 val id = it.arguments?.getString("id") ?: ""
-                GameDetailsScreen(id)
+                GameDetailsScreen(id){
+                    navHostController.popBackStack()
+                }
             }
 
 

@@ -1,6 +1,7 @@
 package org.gamepdia.search.ui
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -32,8 +33,7 @@ import androidx.compose.ui.layout.ContentScale
 
 
 @Composable
-fun SearchScreen(modifier: Modifier = Modifier) {
-
+fun SearchScreen(modifier: Modifier = Modifier, onSearchClick: (id: Int) -> Unit) {
 
     val viewModel = koinViewModel<SearchViewModel>()
     val uiState = viewModel.searchGamesUiState.collectAsStateWithLifecycle()
@@ -46,6 +46,9 @@ fun SearchScreen(modifier: Modifier = Modifier) {
         onQueryChange = {
             query.value = it
             viewModel.updateQuery(query.value)
+        },
+        onSearchClick = { id ->
+            onSearchClick(id)
         }
     )
 
@@ -57,7 +60,8 @@ fun SearchScreenContent(
     modifier: Modifier = Modifier,
     uiState: SearchScreen.UiState,
     query: String,
-    onQueryChange: (String) -> Unit
+    onQueryChange: (String) -> Unit,
+    onSearchClick: (id: Int) -> Unit
 ) {
 
 
@@ -95,7 +99,9 @@ fun SearchScreenContent(
                 modifier = Modifier.fillMaxSize()
             ) {
                 items(data) { game ->
-                    SearchItemCard(game)
+                    SearchItemCard(game, onSearchClick = { id ->
+                        onSearchClick(id)
+                    })
                 }
             }
         }
@@ -104,17 +110,15 @@ fun SearchScreenContent(
 }
 
 
-
 @Composable
-fun SearchItemCard(game: Game) {
+fun SearchItemCard(game: Game, onSearchClick: (id: Int) -> Unit) {
     AsyncImage(
         modifier =
             Modifier.padding(12.dp)
                 .background(color = Color.Transparent, shape = RoundedCornerShape(8.dp))
                 .clip(RoundedCornerShape(8.dp))
                 .height(250.dp)
-
-        ,
+                .clickable { onSearchClick(game.id) },
         model = game.imageUrl,
         contentDescription = null,
         contentScale = ContentScale.Crop

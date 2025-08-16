@@ -28,7 +28,10 @@ object SearchNavGraph : BaseNavGraph{
         ){
             composable(route  = Dest.Search.route){
                 SearchScreen(
-                    modifier = modifier.fillMaxSize()
+                    modifier = modifier.fillMaxSize(),
+                    onSearchClick = {
+                        navHostController.navigate(GameNavGraph.Dest.Details.getRoute(it))
+                    }
                 )
             }
         }
