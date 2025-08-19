@@ -101,7 +101,6 @@ Key goals: **separation of concerns**, **testability**, **independent feature de
 
 ---
 
->>>>>>> fe1bce7f2c69baad8fb87f793333e1a5a9565aff
 This is a Kotlin Multiplatform project targeting Android, iOS, Desktop (JVM).
 
 * [/composeApp](./composeApp/src) is for code that will be shared across your Compose Multiplatform applications.
@@ -120,4 +119,3 @@ This is a Kotlin Multiplatform project targeting Android, iOS, Desktop (JVM).
 Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
 =======
 Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
->>>>>>> fe1bce7f2c69baad8fb87f793333e1a5a9565aff
