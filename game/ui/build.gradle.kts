@@ -42,7 +42,6 @@ kotlin {
 
             implementation(projects.game.domain)
             implementation(projects.common.domain)
-            implementation(projects.common.logger)
             implementation(projects.common.ui)
 
 

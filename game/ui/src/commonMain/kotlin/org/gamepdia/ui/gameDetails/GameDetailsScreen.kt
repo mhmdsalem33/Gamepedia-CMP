@@ -36,12 +36,10 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
 import org.gamepdia.domain.model.Platform
-import org.gamepdia.logError
 import org.koin.compose.viewmodel.koinViewModel
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -459,7 +457,6 @@ fun GameDetailsLoading() {
 fun GameDetailsError(error: String) {
     Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         Text(error)
-        logError(error)
     }
 
 }

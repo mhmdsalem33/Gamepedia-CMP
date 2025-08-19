@@ -54,7 +54,6 @@ include(":game:ui")
 include(":common:data")
 include(":common:domain")
 include(":common:ui")
-include(":common:logger")
 
 
 

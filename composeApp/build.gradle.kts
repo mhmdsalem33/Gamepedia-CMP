@@ -17,7 +17,7 @@ kotlin {
             jvmTarget.set(JvmTarget.JVM_11)
         }
     }
-    
+
     listOf(
         iosX64(),
         iosArm64(),
@@ -28,9 +28,9 @@ kotlin {
             isStatic = true
         }
     }
-    
+
     jvm()
-    
+
     sourceSets {
         androidMain.dependencies {
             implementation(compose.preview)
@@ -71,7 +71,6 @@ kotlin {
 
             implementation(libs.navigation.compose)
             implementation(libs.koin.core)
-            implementation("io.github.aakira:napier:2.6.1")
 
 
 

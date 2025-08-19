@@ -29,7 +29,7 @@ kotlin {
         }
     }
 
-    jvm()
+    jvm("desktop")
 
     sourceSets {
         androidMain.dependencies {

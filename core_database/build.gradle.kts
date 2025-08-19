@@ -25,7 +25,7 @@ kotlin {
         }
     }
 
-    jvm()
+    jvm("desktop")
 
     sourceSets {
 
@@ -69,13 +69,14 @@ kotlin {
 
 
 
-//        val desktopMain by getting
-//
-//        desktopMain.dependencies {
-//            implementation(compose.desktop.currentOs)
-//            implementation(libs.kotlinx.coroutinesSwing)
-//            implementation(libs.sql.delight.desktop)
-//        }
+        val desktopMain by getting
+
+        desktopMain.dependencies {
+            implementation(compose.desktop.currentOs)
+            implementation(libs.kotlinx.coroutinesSwing)
+            implementation(libs.sql.delight.desktop)
+        }
+
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }

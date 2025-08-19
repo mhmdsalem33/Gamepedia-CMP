@@ -20,7 +20,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
-import org.gamepdia.logError
 import org.koin.compose.viewmodel.koinViewModel
 import androidx.compose.foundation.layout.Column
 import org.gamepdia.domain.model.Game
@@ -137,7 +136,6 @@ fun SearchLoading() {
 fun SearchError(error: String) {
     Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         Text(error)
-        logError(error)
     }
 
 }

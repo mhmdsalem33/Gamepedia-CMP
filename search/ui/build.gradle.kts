@@ -40,7 +40,6 @@ kotlin {
 
             implementation(projects.search.domain)
             implementation(projects.common.domain)
-            implementation(projects.common.logger)
 
             implementation(compose.runtime)
             implementation(compose.foundation)
